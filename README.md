@@ -20,6 +20,7 @@ Please refer to this pipeline to obtain information about the annotation pipelin
     Rscript annotation_grouping_file.R
 
 **Grouping Strategies**
+
 In the analysis, We have used multiple grouping strategies and includes,
         1. likely pathogenic, pathogenic variant genes
         2. Exonic region - grouped by genes
@@ -27,7 +28,11 @@ In the analysis, We have used multiple grouping strategies and includes,
 
 
 **Run SAIGE-GENE pipeline**
-Use the script run te saige pipeline for different grouping strategies
+
+Use the script to run Saige pipeline for different grouping strategies
 
     Rscript saige_run.sh ### Make sure all the corresponding input files are there ###
     
+**Overall gene burden association**
+
+This analysis is to check the overall burden of pathogenic or likely pathogenic variants are in association with kidney biomarkers after adjusting for covariates. Please use the script to run this analysis **overall_gene_burden.R**.  You will obtain the regression model coefficient table for this analysis.
