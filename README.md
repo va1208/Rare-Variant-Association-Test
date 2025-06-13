@@ -18,3 +18,16 @@ Please refer to this pipeline to obtain information about the annotation pipelin
 **Create multiple grouping files**
 
     Rscript annotation_grouping_file.R
+
+**Grouping Strategies**
+In the analysis, We have used multiple grouping strategies and includes,
+        1. likely pathogenic, pathogenic variant genes
+        2. Exonic region - grouped by genes
+        3. Whole genome region - grouped all variant in the gene
+
+
+**Run SAIGE-GENE pipeline**
+Use the script run te saige pipeline for different grouping strategies
+
+        Rscript saige_run.sh ### Make all the corresponding input files are there ###
+    
