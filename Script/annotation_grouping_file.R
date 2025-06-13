@@ -1,20 +1,29 @@
-bim <- fread("/mnt/home/n11142006/TIwi_data/Genotypic_data/Final_vcf_file/6_Tiwi_updated/Genotype_data/Rare_Variant_Analysis/02_Run2/rare_var_miss_hwe_het_fil.bim")
+library(data.table)
+library(dplyr)
+setwd("/.../Annovar_annotation/")
+ 
+data <- fread("Annotation_prediction_reqCols.tsv")  ### VEP annotation file #####
+head(data)
+dim(data)
+
+bim <- fread("/.../Rare_Variant_Analysis/02_Run2/rare_var_miss_hwe_het_fil.bim") ## load the final rare variant SNPs excluding intergenic region
 length(intersect(bim$V2, data$SNP))
 
 data <- subset(data, SNP %in% bim$V2)
 length(unique(data$SNP))
 
-sub <- data[,c("SNP", "Func.refGene", "Gene.refGene")]
-sub <- sub %>% distinct()
-sub <- sub %>% mutate(func = recode(Func.refGene, "downstream" = "nearby",
-									"upstream" = "nearby", "upstream;downstream" = "nearby",
+sub <- data[,c("SNP", "Func.refGene", "Gene.refGene")]  ### Three required columns to create a grouping file ###
+sub <- sub %>% distinct() 
+### rewrite the column names based on your functional annotation####
+sub <- sub %>% mutate(func = recode(Func.refGene, "downstream" = "downstream",
+									"upstream" = "upstream", "upstream;downstream" = "upstream/downstream",
 									"exonic;splicing" = "exonic", "intergenic;intergenic" = "intergenic",
 									"intronic;intronic" = "intronic", "ncRNA_exonic" = "ncRNA",
 									"ncRNA_intronic" = "ncRNA", "ncRNA_exonic;splicing" = "ncRNA",
 									"ncRNA_splicing" = "ncRNA", "UTR5;UTR3" = "UTR",
 									"UTR3" = "UTR", "UTR5" = "UTR"))
 ### set working directory ###
-setwd("/mnt/home/n11142006/TIwi_data/Genotypic_data/Final_vcf_file/6_Tiwi_updated/Genotype_data/Rare_Variant_Analysis/02_Run2/03_SAIGE/")
+setwd("/.../Rare_Variant_Analysis/02_Run2/03_SAIGE/")
 
 ### function to do that
 convert_to_saige_annotation <- function(input_df) {
@@ -39,4 +48,4 @@ convert_to_saige_annotation <- function(input_df) {
 
 out <- convert_to_saige_annotation(sub)
 
-writeLines(out, "saige_annotation_file_updated.txt")
+writeLines(out, "saige_annotation_file_updated.txt") ## final required grouping variable for the saige association analysis ####
