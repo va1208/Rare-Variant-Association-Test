@@ -11,10 +11,10 @@ The overall pipeline for the rare variant association analysis is given below
     conda env create -f saige.yml
 
 
-** Run an annotation using the PathVar pipeline **
+**Run an annotation using the PathVar pipeline**
 
 Please refer to this pipeline to obtain information about the annotation pipeline - https://github.com/Mohammed-Alfayyadh/Pathogenic-variant-calling-pipeline-PathVar/tree/main
 
-** Create multiple grouping files ***
+**Create multiple grouping files**
 
     Rscript annotation_grouping_file.R
